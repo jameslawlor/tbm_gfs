@@ -22,7 +22,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/advent_of_code"]
+packages = ["src/tbm_gfs"]
 
 [tool.pytest.ini_options]
 pythonpath = "src"
