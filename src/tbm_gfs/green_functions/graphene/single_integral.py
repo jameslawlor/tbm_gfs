@@ -8,11 +8,14 @@ Journal of Physics: Condensed Matter 26.5 (2013): 055007.
 from scipy.integrate import quad
 from cmath import sin, cos, acos, pi, exp
 from typing import Callable
+import numpy as np
 
 from tbm_gfs.constants import (
     FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY,
     ETA,
     INTEGRATION_LIMIT,
+    INTEGRATION_EPS_ABS,
+    INTEGRATION_EPS_REL,
 )
 
 t0 = FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY
@@ -32,7 +35,7 @@ def func_Ne(
         raise ValueError("Error! Check inputs s1 and s2 are valid. Must equal 1 or 2. ")
 
 
-def green_function(Energy: float, m: int, n: int, s1: int, s2: int) -> complex:
+def green_function(Energy: float, m: int, n: int, s1: int, s2: int):
     def kz_integrand(kz, E, m, n, s1, s2):
         # the complex pole
         q_A = acos(
@@ -51,15 +54,30 @@ def green_function(Energy: float, m: int, n: int, s1: int, s2: int) -> complex:
             / (cos(kz) * sin(q_A))
         )
 
-    if Energy.imag == 0.0:
-        Energy += 1j * ETA
-
-    GF, _ = quad(
+    Energy = Energy + 1j * ETA
+    
+    # GF, _ = quad(
+    #     kz_integrand,
+    #     a=-pi / 2.0,
+    #     b=pi / 2.0,
+    #     args=(Energy, m, n, s1, s2),
+    #     complex_func=True,
+    #     limit=INTEGRATION_LIMIT,
+    #     epsabs=INTEGRATION_EPS_ABS,
+    #     epsrel=INTEGRATION_EPS_REL,
+    # )
+    GF_fun = lambda Energy, m, n, s1, s2: quad(
         kz_integrand,
         a=-pi / 2.0,
         b=pi / 2.0,
         args=(Energy, m, n, s1, s2),
         complex_func=True,
         limit=INTEGRATION_LIMIT,
+        epsabs=INTEGRATION_EPS_ABS,
+        epsrel=INTEGRATION_EPS_REL,
     )
-    return (1j / (4.0 * pi * t0 * t0)) * GF
+    GF_vectorised = np.vectorize(GF_fun)
+    return (1j / (4.0 * pi * t0 * t0)) * GF_vectorised(Energy, m, n, s1, s2)
+
+# intfun = lambda a: integrate.quad(fun2int, 0, 4, args=(a))[0]
+# vec_int = np.vectorize(intfun)
