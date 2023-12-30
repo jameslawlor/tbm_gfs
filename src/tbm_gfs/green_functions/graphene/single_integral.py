@@ -25,7 +25,7 @@ def func_Ne(
         return lambda kz, q_A: E
     elif s1 == 1 and s2 == 2:
         return lambda kz, q_A: t0 + 2 * t0 * cos(kz) * exp(+1j * q_A)
-    elif s2 == 1 and s2 == 2:
+    elif s1 == 2 and s2 == 1:
         exponent_sign = 1 if (m == 0 and n == 0) else -1
         return lambda kz, q_A: t0 + 2 * t0 * cos(kz) * exp(exponent_sign * 1j * q_A)
     else:
