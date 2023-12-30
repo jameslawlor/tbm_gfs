@@ -26,7 +26,7 @@ jobs:
 
   unit-tests:
     runs-on: ubuntu-latest
-    requires: build
+    needs: build
     strategy:
       fail-fast: false
       matrix:
