@@ -12,6 +12,6 @@ clean:
 .PHONY: ruff
 # Clean temporary and generated files
 ruff:
-	ruff check .
 	ruff format .
+	ruff check .
 	
