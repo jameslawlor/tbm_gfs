@@ -6,7 +6,7 @@ authors = [
 ]
 description = "Lattice Green's Functions for graphene, carbon nanotubes and nanoribbons and electronic structure computations."
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
@@ -32,5 +32,5 @@ addopts = [
 
 [tool.black]
 line-length = 88
-target-version = ['py38', 'py39', 'py310', 'py311']
+target-version = ['py39', 'py39', 'py310', 'py311', 'py312']
 
