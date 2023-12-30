@@ -21,18 +21,18 @@ def sample_energies():
     e_max = 3.0
     return np.concatenate(
         (
-            np.arange(-e_max, -t0_abs, incr), 
-            np.arange(-t0_abs+incr, 0.0, incr), 
-            np.arange(incr, t0_abs-incr, incr), 
-            np.arange(t0_abs+incr, e_max, incr), 
+            np.arange(-e_max, -t0_abs, incr),
+            np.arange(-t0_abs + incr, 0.0, incr),
+            np.arange(incr, t0_abs - incr, incr),
+            np.arange(t0_abs + incr, e_max, incr),
         )
     )
 
 
 def test_g00_same_sublattice(
-        sample_energies,
-        max_relative_integration_comparison_error,
-        ):
+    sample_energies,
+    max_relative_integration_comparison_error,
+):
     for energy in sample_energies:
         single_integral_result = single_integral_gf(energy, m=0, n=0, s1=1, s2=1)
         double_integral_result = double_integral_gf(energy, m=0, n=0, s1=1, s2=1)
@@ -53,7 +53,9 @@ def test_g00_same_sublattice(
         )
 
 
-def test_g00_opposite_sublattice(sample_energies, max_relative_integration_comparison_error):
+def test_g00_opposite_sublattice(
+    sample_energies, max_relative_integration_comparison_error
+):
     for energy in sample_energies:
         single_integral_result = single_integral_gf(energy, m=0, n=0, s1=1, s2=2)
         double_integral_result = double_integral_gf(energy, m=0, n=0, s1=1, s2=2)
@@ -74,8 +76,9 @@ def test_g00_opposite_sublattice(sample_energies, max_relative_integration_compa
         )
 
 
-
-def test_g10_same_sublattice(sample_energies, max_relative_integration_comparison_error):
+def test_g10_same_sublattice(
+    sample_energies, max_relative_integration_comparison_error
+):
     for energy in sample_energies:
         single_integral_result = single_integral_gf(energy, m=1, n=0, s1=1, s2=1)
         double_integral_result = double_integral_gf(energy, m=1, n=0, s1=1, s2=1)
@@ -96,7 +99,9 @@ def test_g10_same_sublattice(sample_energies, max_relative_integration_compariso
         )
 
 
-def test_g10_opposite_sublattice(sample_energies, max_relative_integration_comparison_error):
+def test_g10_opposite_sublattice(
+    sample_energies, max_relative_integration_comparison_error
+):
     for energy in sample_energies:
         single_integral_result = single_integral_gf(energy, m=1, n=0, s1=1, s2=2)
         double_integral_result = double_integral_gf(energy, m=1, n=0, s1=1, s2=2)

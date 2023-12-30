@@ -8,7 +8,6 @@ Journal of Physics: Condensed Matter 26.5 (2013): 055007.
 from scipy.integrate import quad
 from cmath import sin, cos, acos, pi, exp
 from typing import Callable
-import numpy as np
 
 from tbm_gfs.constants import (
     FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY,
@@ -55,7 +54,7 @@ def green_function(Energy: float, m: int, n: int, s1: int, s2: int):
         )
 
     Energy = Energy + 1j * ETA
-    
+
     GF, _ = quad(
         kz_integrand,
         a=-pi / 2.0,

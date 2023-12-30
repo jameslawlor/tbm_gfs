@@ -39,7 +39,9 @@ def green_function(Energy: float, m: int, n: int, s1: int, s2: int) -> complex:
 
         Ne = func_Ne(E, kz, ka, m, n, s1, s2)
 
-        return (Ne(kz, ka)*exp(1j*(ka*(m+n)+kz*(m-n)))) / (E**2 - dispersion_epsilon**2)
+        return (Ne(kz, ka) * exp(1j * (ka * (m + n) + kz * (m - n)))) / (
+            E**2 - dispersion_epsilon**2
+        )
 
     def real_integrand(kz, ka, E):
         return np.real(integrand(kz, ka, E))
