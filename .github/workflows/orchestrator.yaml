@@ -23,3 +23,29 @@ jobs:
     - name: Run ruff
       run: |
         make ruff
+  unit-tests:
+    runs-on: ubuntu-latest
+    requires: build
+    strategy:
+      fail-fast: false
+      matrix:
+        test-name: [
+          "test_g00_same_sublattice",
+          "test_g00_opposite_sublattice",
+          "test_g10_same_sublattice",
+          "test_g10_opposite_sublattice"
+          ]
+
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.12"
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    - name: Run unit-test ${{ matrix.test-name }}
+      run: |
+        pytest -vsk ${{ matrix.test-name }}
+
+

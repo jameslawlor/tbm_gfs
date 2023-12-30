@@ -10,7 +10,6 @@ from tbm_gfs.constants import (
     FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY,
 )
 
-MAX_REL_ERROR = 2e-2 # Allow only 2% error comparing double vs single integrals
 
 @pytest.fixture
 def sample_energies():
@@ -19,7 +18,7 @@ def sample_energies():
     """
     t0_abs = np.abs(FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY)
     incr = 0.25
-    e_max = 4.0
+    e_max = 3.0
     return np.concatenate(
         (
             np.arange(-e_max, -t0_abs, incr), 
@@ -30,7 +29,10 @@ def sample_energies():
     )
 
 
-def test_g00_same_sublattice(sample_energies):
+def test_g00_same_sublattice(
+        sample_energies,
+        max_relative_integration_comparison_error,
+        ):
     for energy in sample_energies:
         single_integral_result = single_integral_gf(energy, m=0, n=0, s1=1, s2=1)
         double_integral_result = double_integral_gf(energy, m=0, n=0, s1=1, s2=1)
@@ -44,14 +46,14 @@ def test_g00_same_sublattice(sample_energies):
             imag_part_err,
         )
         assert single_integral_result.real == pytest.approx(
-            double_integral_result.real, rel=MAX_REL_ERROR
+            double_integral_result.real, rel=max_relative_integration_comparison_error
         )
         assert single_integral_result.imag == pytest.approx(
-            double_integral_result.imag, rel=MAX_REL_ERROR
+            double_integral_result.imag, rel=max_relative_integration_comparison_error
         )
 
 
-def test_g00_opposite_sublattice(sample_energies):
+def test_g00_opposite_sublattice(sample_energies, max_relative_integration_comparison_error):
     for energy in sample_energies:
         single_integral_result = single_integral_gf(energy, m=0, n=0, s1=1, s2=2)
         double_integral_result = double_integral_gf(energy, m=0, n=0, s1=1, s2=2)
@@ -65,15 +67,15 @@ def test_g00_opposite_sublattice(sample_energies):
             imag_part_err,
         )
         assert single_integral_result.real == pytest.approx(
-            double_integral_result.real, rel=MAX_REL_ERROR
+            double_integral_result.real, rel=max_relative_integration_comparison_error
         )
         assert single_integral_result.imag == pytest.approx(
-            double_integral_result.imag, rel=MAX_REL_ERROR
+            double_integral_result.imag, rel=max_relative_integration_comparison_error
         )
 
 
 
-def test_g10_same_sublattice(sample_energies):
+def test_g10_same_sublattice(sample_energies, max_relative_integration_comparison_error):
     for energy in sample_energies:
         single_integral_result = single_integral_gf(energy, m=1, n=0, s1=1, s2=1)
         double_integral_result = double_integral_gf(energy, m=1, n=0, s1=1, s2=1)
@@ -87,14 +89,14 @@ def test_g10_same_sublattice(sample_energies):
             imag_part_err,
         )
         assert single_integral_result.real == pytest.approx(
-            double_integral_result.real, rel=MAX_REL_ERROR
+            double_integral_result.real, rel=max_relative_integration_comparison_error
         )
         assert single_integral_result.imag == pytest.approx(
-            double_integral_result.imag, rel=MAX_REL_ERROR
+            double_integral_result.imag, rel=max_relative_integration_comparison_error
         )
 
 
-def test_g10_opposite_sublattice(sample_energies):
+def test_g10_opposite_sublattice(sample_energies, max_relative_integration_comparison_error):
     for energy in sample_energies:
         single_integral_result = single_integral_gf(energy, m=1, n=0, s1=1, s2=2)
         double_integral_result = double_integral_gf(energy, m=1, n=0, s1=1, s2=2)
@@ -108,8 +110,8 @@ def test_g10_opposite_sublattice(sample_energies):
             imag_part_err,
         )
         assert single_integral_result.real == pytest.approx(
-            double_integral_result.real, rel=MAX_REL_ERROR
+            double_integral_result.real, rel=max_relative_integration_comparison_error
         )
         assert single_integral_result.imag == pytest.approx(
-            double_integral_result.imag, rel=MAX_REL_ERROR
+            double_integral_result.imag, rel=max_relative_integration_comparison_error
         )

@@ -15,3 +15,6 @@ ruff:
 	ruff format .
 	ruff check .
 	
+.PHONY: tests
+tests:
+	pytest -vs

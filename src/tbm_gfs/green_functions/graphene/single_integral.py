@@ -56,17 +56,7 @@ def green_function(Energy: float, m: int, n: int, s1: int, s2: int):
 
     Energy = Energy + 1j * ETA
     
-    # GF, _ = quad(
-    #     kz_integrand,
-    #     a=-pi / 2.0,
-    #     b=pi / 2.0,
-    #     args=(Energy, m, n, s1, s2),
-    #     complex_func=True,
-    #     limit=INTEGRATION_LIMIT,
-    #     epsabs=INTEGRATION_EPS_ABS,
-    #     epsrel=INTEGRATION_EPS_REL,
-    # )
-    GF_fun = lambda Energy, m, n, s1, s2: quad(
+    GF, _ = quad(
         kz_integrand,
         a=-pi / 2.0,
         b=pi / 2.0,
@@ -76,8 +66,5 @@ def green_function(Energy: float, m: int, n: int, s1: int, s2: int):
         epsabs=INTEGRATION_EPS_ABS,
         epsrel=INTEGRATION_EPS_REL,
     )
-    GF_vectorised = np.vectorize(GF_fun)
-    return (1j / (4.0 * pi * t0 * t0)) * GF_vectorised(Energy, m, n, s1, s2)
 
-# intfun = lambda a: integrate.quad(fun2int, 0, 4, args=(a))[0]
-# vec_int = np.vectorize(intfun)
+    return (1j / (4.0 * pi * t0 * t0)) * GF
