@@ -3,3 +3,4 @@
 __pycache__/
 old_code/
 .debug_notebook.ipynb
+.tmp/
