@@ -19,9 +19,9 @@ def func_Ne(
     if s1 == s2:
         return lambda kz, ka: E
     elif s1 == 1 and s2 == 2:
-        return lambda kz, ka: t0 * (1 + 2 * cos(kz) * exp(-1j * ka))
+        return lambda kz, ka: t0 * (1 + 2 * cos(kz) * exp(1j * ka))
     elif s1 == 2 and s2 == 1:
-        exponent_sign = -1 if (m == 0 and n == 0) else 1
+        exponent_sign = 1 if (m == 0 and n == 0) else -1
         return lambda kz, ka: t0 * (1 + 2 * cos(kz) * exp(exponent_sign * 1j * ka))
     else:
         raise ValueError("Error! Check inputs s1 and s2 are valid. Must equal 1 or 2. ")
@@ -29,7 +29,7 @@ def func_Ne(
 
 def green_function(Energy: float, m: int, n: int, s1: int, s2: int) -> complex:
     """
-    Paul's thesis 3.1.13
+    Paul's thesis eq 3.1.13
     """
 
     def integrand(kz, ka, E):
