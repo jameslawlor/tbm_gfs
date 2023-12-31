@@ -1,6 +1,6 @@
 .PHONY: all
 # Clean temporary and generated files
-all: clean ruff
+all: clean ruff tests
 
 .PHONY: clean
 # Clean temporary and generated files
