@@ -11,112 +11,26 @@ from tbm_gfs.constants import (
 )
 
 
-@pytest.fixture
-def sample_energies():
-    """
-    avoid divergencies at 0 and +t, -t
-    """
-    t0_abs = np.abs(FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY)
-    incr = 0.25
-    e_max = 3.0
-    return np.concatenate(
-        (
-            np.arange(-e_max, -t0_abs, incr),
-            np.arange(-t0_abs + incr, 0.0, incr),
-            np.arange(incr, t0_abs - incr, incr),
-            np.arange(t0_abs + incr, e_max, incr),
-        )
-    )
+t0_abs = np.abs(FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY)
+e_max = 3.0 + t0_abs / 2
 
 
-def test_g00_same_sublattice(
-    sample_energies,
+@pytest.mark.parametrize("input_energy", np.linspace(start=-e_max, stop=e_max, num=10))
+@pytest.mark.parametrize("m_and_n_vectors", [(0, 0), (1, 1), (1, 0)])
+@pytest.mark.parametrize("s1_and_s2_sublattices", [(1, 1), (1, 2), (2, 1)])
+def test_single_and_double_gf_similarity(
+    input_energy,
+    m_and_n_vectors,
+    s1_and_s2_sublattices,
     max_relative_integration_comparison_error,
 ):
-    for energy in sample_energies:
-        single_integral_result = single_integral_gf(energy, m=0, n=0, s1=1, s2=1)
-        double_integral_result = double_integral_gf(energy, m=0, n=0, s1=1, s2=1)
-        real_part_err = single_integral_result.real / double_integral_result.real
-        imag_part_err = single_integral_result.imag / double_integral_result.imag
-        print(
-            energy,
-            single_integral_result,
-            double_integral_result,
-            real_part_err,
-            imag_part_err,
-        )
-        assert single_integral_result.real == pytest.approx(
-            double_integral_result.real, rel=max_relative_integration_comparison_error
-        )
-        assert single_integral_result.imag == pytest.approx(
-            double_integral_result.imag, rel=max_relative_integration_comparison_error
-        )
-
-
-def test_g00_opposite_sublattice(
-    sample_energies, max_relative_integration_comparison_error
-):
-    for energy in sample_energies:
-        single_integral_result = single_integral_gf(energy, m=0, n=0, s1=1, s2=2)
-        double_integral_result = double_integral_gf(energy, m=0, n=0, s1=1, s2=2)
-        real_part_err = single_integral_result.real / double_integral_result.real
-        imag_part_err = single_integral_result.imag / double_integral_result.imag
-        print(
-            energy,
-            single_integral_result,
-            double_integral_result,
-            real_part_err,
-            imag_part_err,
-        )
-        assert single_integral_result.real == pytest.approx(
-            double_integral_result.real, rel=max_relative_integration_comparison_error
-        )
-        assert single_integral_result.imag == pytest.approx(
-            double_integral_result.imag, rel=max_relative_integration_comparison_error
-        )
-
-
-def test_g10_same_sublattice(
-    sample_energies, max_relative_integration_comparison_error
-):
-    for energy in sample_energies:
-        single_integral_result = single_integral_gf(energy, m=1, n=0, s1=1, s2=1)
-        double_integral_result = double_integral_gf(energy, m=1, n=0, s1=1, s2=1)
-        real_part_err = single_integral_result.real / double_integral_result.real
-        imag_part_err = single_integral_result.imag / double_integral_result.imag
-        print(
-            energy,
-            single_integral_result,
-            double_integral_result,
-            real_part_err,
-            imag_part_err,
-        )
-        assert single_integral_result.real == pytest.approx(
-            double_integral_result.real, rel=max_relative_integration_comparison_error
-        )
-        assert single_integral_result.imag == pytest.approx(
-            double_integral_result.imag, rel=max_relative_integration_comparison_error
-        )
-
-
-def test_g10_opposite_sublattice(
-    sample_energies, max_relative_integration_comparison_error
-):
-    for energy in sample_energies:
-        single_integral_result = single_integral_gf(energy, m=1, n=0, s1=1, s2=2)
-        double_integral_result = double_integral_gf(energy, m=1, n=0, s1=1, s2=2)
-        real_part_err = single_integral_result.real / double_integral_result.real
-        imag_part_err = single_integral_result.imag / double_integral_result.imag
-        print(
-            energy,
-            single_integral_result,
-            double_integral_result,
-            real_part_err,
-            imag_part_err,
-        )
-        assert single_integral_result.real == pytest.approx(
-            double_integral_result.real, rel=max_relative_integration_comparison_error
-        )
-        assert single_integral_result.imag == pytest.approx(
-            double_integral_result.imag, rel=max_relative_integration_comparison_error
-        )
+    (m, n) = m_and_n_vectors
+    (s1, s2) = s1_and_s2_sublattices
+    single_integral_result = single_integral_gf(input_energy, m, n, s1, s2)
+    double_integral_result = double_integral_gf(input_energy, m, n, s1, s2)
+    assert single_integral_result.real == pytest.approx(
+        double_integral_result.real, rel=max_relative_integration_comparison_error
+    )
+    assert single_integral_result.imag == pytest.approx(
+        double_integral_result.imag, rel=max_relative_integration_comparison_error
+    )
