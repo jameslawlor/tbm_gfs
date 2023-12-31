@@ -14,8 +14,7 @@ pip install -e .
 
 
 ## TODO list
-* Graphene GFs double integral
-* Single integral
+* Single integral kA version
 * Stationary Phase Approximation
 * GFs for Hamiltonian with 2nd NN overlap 
 * LDOS

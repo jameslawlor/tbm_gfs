@@ -13,6 +13,8 @@ from tbm_gfs.constants import (
     FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY,
     ETA,
     INTEGRATION_LIMIT,
+    INTEGRATION_EPS_ABS,
+    INTEGRATION_EPS_REL,
 )
 
 t0 = FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY
@@ -32,7 +34,7 @@ def func_Ne(
         raise ValueError("Error! Check inputs s1 and s2 are valid. Must equal 1 or 2. ")
 
 
-def green_function(Energy: float, m: int, n: int, s1: int, s2: int) -> complex:
+def green_function(Energy: float, m: int, n: int, s1: int, s2: int):
     def kz_integrand(kz, E, m, n, s1, s2):
         # the complex pole
         q_A = acos(
@@ -51,8 +53,7 @@ def green_function(Energy: float, m: int, n: int, s1: int, s2: int) -> complex:
             / (cos(kz) * sin(q_A))
         )
 
-    if Energy.imag == 0.0:
-        Energy += 1j * ETA
+    Energy = Energy + 1j * ETA
 
     GF, _ = quad(
         kz_integrand,
@@ -61,5 +62,8 @@ def green_function(Energy: float, m: int, n: int, s1: int, s2: int) -> complex:
         args=(Energy, m, n, s1, s2),
         complex_func=True,
         limit=INTEGRATION_LIMIT,
+        epsabs=INTEGRATION_EPS_ABS,
+        epsrel=INTEGRATION_EPS_REL,
     )
+
     return (1j / (4.0 * pi * t0 * t0)) * GF
