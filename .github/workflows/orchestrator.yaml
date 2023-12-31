@@ -29,13 +29,6 @@ jobs:
     needs: build
     strategy:
       fail-fast: false
-      matrix:
-        test-name: [
-          "test_g00_same_sublattice",
-          "test_g00_opposite_sublattice",
-          "test_g10_same_sublattice",
-          "test_g10_opposite_sublattice"
-          ]
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.12
@@ -45,8 +38,8 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
-    - name: Run unit-test ${{ matrix.test-name }}
+    - name: Run unit-tests
       run: |
-        pytest -vsk ${{ matrix.test-name }}
+        pytest -vs
 
 
