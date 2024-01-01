@@ -4,7 +4,7 @@ version = "0.0.1"
 authors = [
   { name="James Andrew Lawlor"},
 ]
-description = "Lattice Green's Functions for graphene, carbon nanotubes and nanoribbons and electronic structure computations."
+description = "Lattice Green's Functions for graphene, carbon nanotubes and nanoribbons and their electronic structure computations."
 readme = "README.md"
 requires-python = ">=3.9"
 classifiers = [
@@ -32,5 +32,5 @@ addopts = [
 
 [tool.black]
 line-length = 88
-target-version = ['py39', 'py39', 'py310', 'py311', 'py312']
+target-version = ['py39', 'py310', 'py311', 'py312']
 
