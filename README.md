@@ -14,7 +14,6 @@ pip install -e .
 
 
 ## TODO list
-* Single integral kA version
 * Stationary Phase Approximation
 * GFs for Hamiltonian with 2nd NN overlap 
 * LDOS
