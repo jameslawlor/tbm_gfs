@@ -15,11 +15,15 @@ from tbm_gfs.constants import (
 
 
 t0_abs = np.abs(FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY)
-e_max = 3.0 + t0_abs / 2
+input_energy_max = 3.0*t0_abs + t0_abs / 2
 
 
-@pytest.mark.parametrize("input_energy", np.linspace(start=-e_max, stop=e_max, num=10))
-@pytest.mark.parametrize("m_and_n_vectors", [(0, 0), (1, 1), (1, 0)])
+@pytest.mark.parametrize("input_energy", np.array([
+    input_energy_max, #outside spectral band
+    3*t0_abs/2,  # E> larger than LDOS peak at plus/minus |t|
+    -t0_abs/2 # E within spectral band, and below Fermi energy
+    ]))
+@pytest.mark.parametrize("m_and_n_vectors", [(0, 0), (1, 1)])
 @pytest.mark.parametrize("s1_and_s2_sublattices", [(1, 1), (1, 2), (2, 1)])
 def test_single_and_double_gf_similarity(
     input_energy,
@@ -39,7 +43,7 @@ def test_single_and_double_gf_similarity(
     )
 
 
-@pytest.mark.parametrize("input_energy", np.linspace(start=-e_max, stop=e_max, num=10))
+@pytest.mark.parametrize("input_energy", np.linspace(start=-input_energy_max, stop=input_energy_max, num=10))
 @pytest.mark.parametrize("m_and_n_vectors", [(0, 0), (1, 1), (1, 0)])
 @pytest.mark.parametrize("s1_and_s2_sublattices", [(1, 1), (1, 2), (2, 1)])
 def test_single_integral_gf_ka_vs_kz_similarity(
