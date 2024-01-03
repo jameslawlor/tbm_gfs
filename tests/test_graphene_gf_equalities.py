@@ -6,6 +6,9 @@ from tbm_gfs.green_functions.graphene.double_integral import (
 from tbm_gfs.green_functions.graphene.single_integral import (
     green_function as single_integral_gf,
 )
+from tbm_gfs.green_functions.graphene.stationary_phase_approximation import (
+    spa_same_sublattice_armchair_gf as spa_armchair_gf,
+)
 from tbm_gfs.constants import (
     FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY,
 )
@@ -69,4 +72,39 @@ def test_single_integral_gf_ka_vs_kz_similarity(
     )
     assert kz_integral_result.imag == pytest.approx(
         ka_integral_result.imag, rel=max_relative_integration_comparison_error
+    )
+
+
+@pytest.mark.parametrize(
+    "input_energy", np.linspace(start=0.1, stop=0.8, num=100)
+)
+@pytest.mark.parametrize("m_and_n_vectors", [(10,10)])
+@pytest.mark.parametrize("s1_and_s2_sublattices", [(1, 1), ])
+def test_stationary_phase_approximation_armchair(
+    input_energy,
+    m_and_n_vectors,
+    s1_and_s2_sublattices,
+):
+    max_allowed_relative_err = 0.05
+    max_allowed_absolute_err = 0.005
+
+    (m, n) = m_and_n_vectors
+    (s1, s2) = s1_and_s2_sublattices
+    gf_integral_result = single_integral_gf(
+        input_energy, m, n, s1, s2, integration_variable="ka"
+    )
+    spa_result = spa_armchair_gf(
+        input_energy, m, n, s1, s2
+    )
+    print(gf_integral_result.real/spa_result.real)
+    print(gf_integral_result.imag/spa_result.imag)
+    assert gf_integral_result.real == pytest.approx(
+        spa_result.real, 
+        rel=max_allowed_relative_err, 
+        abs=max_allowed_absolute_err,
+    )
+    assert gf_integral_result.imag == pytest.approx(
+        spa_result.imag, 
+        rel=max_allowed_relative_err, 
+        abs=max_allowed_absolute_err
     )
