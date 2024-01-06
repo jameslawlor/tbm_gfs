@@ -51,7 +51,7 @@ def test_single_and_double_gf_similarity(
 @pytest.mark.parametrize(
     "input_energy", np.linspace(start=-input_energy_max, stop=input_energy_max, num=10)
 )
-@pytest.mark.parametrize("m_and_n_vectors", [(0, 0), (1, 1), (1, 0)])
+@pytest.mark.parametrize("m_and_n_vectors", [(0, 0), (1, 1), (1, 0), (8, 3)])
 @pytest.mark.parametrize("s1_and_s2_sublattices", [(1, 1), (1, 2), (2, 1)])
 def test_single_integral_gf_ka_vs_kz_similarity(
     input_energy,
@@ -76,35 +76,50 @@ def test_single_integral_gf_ka_vs_kz_similarity(
 
 
 @pytest.mark.parametrize(
-    "input_energy", np.linspace(start=0.1, stop=0.8, num=100)
+    "input_energy",
+    np.concatenate(
+        (  # Avoid divergencies at +-|t| and +-|3t|
+            np.linspace(start=-2.8 * t0_abs, stop=-1.1 * t0_abs, num=10),
+            np.linspace(start=-0.8 * t0_abs, stop=0.8 * t0_abs, num=10),
+            np.linspace(start=1.1 * t0_abs, stop=2.8 * t0_abs, num=10),
+        )
+    ),
 )
-@pytest.mark.parametrize("m_and_n_vectors", [(10,10)])
-@pytest.mark.parametrize("s1_and_s2_sublattices", [(1, 1), ])
+@pytest.mark.parametrize(
+    "m_and_n_vectors",
+    [
+        (5, 5),
+        (10, 10),
+        (20, 20),
+    ],
+)  # must be armchair direction i.e. m=n
+@pytest.mark.parametrize(
+    "s1_and_s2_sublattices",
+    [
+        (1, 1),
+        # (1,2),
+        # (2,1),
+    ],
+)
 def test_stationary_phase_approximation_armchair(
     input_energy,
     m_and_n_vectors,
     s1_and_s2_sublattices,
 ):
-    max_allowed_relative_err = 0.05
+    max_allowed_relative_err = 0.005
     max_allowed_absolute_err = 0.005
 
     (m, n) = m_and_n_vectors
     (s1, s2) = s1_and_s2_sublattices
     gf_integral_result = single_integral_gf(
-        input_energy, m, n, s1, s2, integration_variable="ka"
+        input_energy, m, n, s1, s2, integration_variable="kz"
     )
-    spa_result = spa_armchair_gf(
-        input_energy, m, n, s1, s2
-    )
-    print(gf_integral_result.real/spa_result.real)
-    print(gf_integral_result.imag/spa_result.imag)
+    spa_result = spa_armchair_gf(input_energy, m, n, s1, s2)
     assert gf_integral_result.real == pytest.approx(
-        spa_result.real, 
-        rel=max_allowed_relative_err, 
+        spa_result.real,
+        rel=max_allowed_relative_err,
         abs=max_allowed_absolute_err,
     )
     assert gf_integral_result.imag == pytest.approx(
-        spa_result.imag, 
-        rel=max_allowed_relative_err, 
-        abs=max_allowed_absolute_err
+        spa_result.imag, rel=max_allowed_relative_err, abs=max_allowed_absolute_err
     )
