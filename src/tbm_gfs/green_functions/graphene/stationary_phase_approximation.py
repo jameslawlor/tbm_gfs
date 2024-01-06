@@ -22,8 +22,8 @@ t0 = FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY
 
 def spa_same_sublattice_armchair_gf(E, m, n, s1, s2):
     """
-
-    Source: Eq 3.16 in https://scholar.google.com/citations?view_op=view_citation&hl=en&user=XeiCaFIAAAAJ&authuser=1&citation_for_view=XeiCaFIAAAAJ:geHnlv5EZngC
+    Source: Eq 3.16 in
+    https://scholar.google.com/citations?view_op=view_citation&hl=en&user=XeiCaFIAAAAJ&authuser=1&citation_for_view=XeiCaFIAAAAJ:geHnlv5EZngC
     """
     D = m + n
     sign = -E.real / abs(E.real)

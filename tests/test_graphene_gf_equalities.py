@@ -97,8 +97,6 @@ def test_single_integral_gf_ka_vs_kz_similarity(
     "s1_and_s2_sublattices",
     [
         (1, 1),
-        # (1,2),
-        # (2,1),
     ],
 )
 def test_stationary_phase_approximation_armchair(
