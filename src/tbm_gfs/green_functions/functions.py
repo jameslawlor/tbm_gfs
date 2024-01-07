@@ -7,6 +7,7 @@ from tbm_gfs.constants import (
 
 t0 = FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY
 
+# TODO: Refactor lambda functions to clean up unneeded arguments
 
 def Ne_lambda_function(
     E: complex, kz: complex, ka: complex, m: int, n: int, s1: int, s2: int
