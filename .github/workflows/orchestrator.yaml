@@ -29,6 +29,11 @@ jobs:
     needs: build
     strategy:
       fail-fast: false
+      matrix: 
+        test-file: 
+        - "./tests/test_armchair_nanotube_gf_equalities.py"
+        - "./tests/test_zigzag_nanotube_gf_equalities.py"
+        - "./tests/test_graphene_gf_equalities.py"
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.12
@@ -40,6 +45,6 @@ jobs:
         pip install -r requirements.txt
     - name: Run unit-tests
       run: |
-        pytest -vs
+        pytest -vs {{ matrix.test-file }}
 
 
