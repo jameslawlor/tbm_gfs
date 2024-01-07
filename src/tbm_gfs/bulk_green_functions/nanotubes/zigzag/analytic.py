@@ -1,6 +1,6 @@
 from cmath import pi, cos, sin, acos, exp
 
-from tbm_gfs.green_functions.functions import (
+from tbm_gfs.bulk_green_functions.functions import (
     Ne_lambda_function,
     phase_lambda_function,
 )
@@ -35,6 +35,6 @@ def green_function(n_c, E, m, n, s1, s2):
             phase_term = phase_lambda_function(kz, q_A, m, n)
 
             G += (1j / (4 * n_c * (t0 * t0))) * (
-                (Ne(kz,q_A) * phase_term(kz, q_A, m, n)) / (cos(kz) * sin(q_A))
+                (Ne(kz, q_A) * phase_term(kz, q_A, m, n)) / (cos(kz) * sin(q_A))
             )
     return G

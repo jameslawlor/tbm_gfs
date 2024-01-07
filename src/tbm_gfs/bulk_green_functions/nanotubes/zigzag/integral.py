@@ -1,7 +1,7 @@
 from scipy.integrate import quad
 from cmath import pi
 
-from tbm_gfs.green_functions.functions import (
+from tbm_gfs.bulk_green_functions.functions import (
     Ne_lambda_function,
     phase_lambda_function,
     dispersion_relation_lambda_function,
