@@ -1,6 +1,6 @@
 from scipy.integrate import nquad
 from cmath import pi
-from tbm_gfs.green_functions.functions import (
+from tbm_gfs.bulk_green_functions.functions import (
     Ne_lambda_function,
     dispersion_relation_lambda_function,
     phase_lambda_function,
@@ -10,7 +10,7 @@ from tbm_gfs.constants import (
     ETA,
 )
 
-from tbm_gfs.green_functions.graphene.config import (
+from tbm_gfs.bulk_green_functions.graphene.config import (
     integration_options,
     kz_integration_bounds,
     ka_integration_bounds,

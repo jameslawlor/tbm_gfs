@@ -1,9 +1,9 @@
 import pytest
 import numpy as np
-from tbm_gfs.green_functions.nanotubes.armchair.analytic import (
+from tbm_gfs.bulk_green_functions.nanotubes.armchair.analytic import (
     green_function as armchair_analytic_gf,
 )
-from tbm_gfs.green_functions.nanotubes.armchair.integral import (
+from tbm_gfs.bulk_green_functions.nanotubes.armchair.integral import (
     green_function as armchair_integral_gf,
 )
 from tbm_gfs.constants import (

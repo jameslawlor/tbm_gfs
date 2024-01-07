@@ -1,4 +1,4 @@
-from tbm_gfs.green_functions.graphene.single_integral import green_function
+from tbm_gfs.bulk_green_functions.graphene.single_integral import green_function
 import numpy as np
 import matplotlib.pylab as plt
 

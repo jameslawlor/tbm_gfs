@@ -13,7 +13,7 @@ pip install -e .
 ```
 
 ## Currently implemented
-* Green's Functions
+* Bulk lattice Green's Functions
   * Graphene
     * Double integral form
     * Single integral forms (ka, kz)
@@ -27,12 +27,17 @@ pip install -e .
 ## TODO list
 * Code
   * Stationary Phase Approximation (Zigzag, opposite sublattices)
-  * GFs for Hamiltonian with 2nd NN overlap 
+  * GFs for Hamiltonians with 2nd NN hopping integrals and wavefunction overlap 
+  * Bulk GFs for semi-infinite graphene sheets
   * Friedel oscillations 
-  * Recursive GFs for nanoribbon and nanotubes using Dyson equation
+  * Recursive GFs for nanoribbon and nanotubes
+    * Standard recursive methods
+    * Rubio-Sancho / Sancho-Rubio method for recursive GFs
+    * Kubo formula for conductance
   * Magnetic coupling / RKKY
   * Impurities, dN, dE calculations
   * Sublattice asymmetry (Ising model?)
+  * Graphene "sector" method
 * Features
   * Docker images
   * Docker build/run commands

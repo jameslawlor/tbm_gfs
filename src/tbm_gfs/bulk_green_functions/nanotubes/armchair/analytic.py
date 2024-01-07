@@ -1,6 +1,6 @@
 from cmath import pi, cos, sin, acos, sqrt
 
-from tbm_gfs.green_functions.functions import (
+from tbm_gfs.bulk_green_functions.functions import (
     Ne_lambda_function,
     phase_lambda_function,
 )
