@@ -26,12 +26,7 @@ t0_abs = np.abs(FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY)
 )
 @pytest.mark.parametrize(
     "m_and_n_vectors",
-    [
-        (0, 0),
-         (1, 1),
-         (1, 0),
-         (8, 3)
-    ],
+    [(0, 0), (1, 1), (1, 0), (8, 3)],
 )
 @pytest.mark.parametrize(
     "s1_and_s2_sublattices",
@@ -68,8 +63,12 @@ def test_armchair_nanotube_analytic_vs_integral_gf_similarity(
         s2,
     )
     assert armchair_analytic_result.real == pytest.approx(
-        armchair_integral_result.real, rel=max_relative_integration_comparison_error, abs=max_relative_integration_comparison_error
+        armchair_integral_result.real,
+        rel=max_relative_integration_comparison_error,
+        abs=max_relative_integration_comparison_error,
     )
     assert armchair_analytic_result.imag == pytest.approx(
-        armchair_integral_result.imag, rel=max_relative_integration_comparison_error, abs=max_relative_integration_comparison_error
+        armchair_integral_result.imag,
+        rel=max_relative_integration_comparison_error,
+        abs=max_relative_integration_comparison_error,
     )

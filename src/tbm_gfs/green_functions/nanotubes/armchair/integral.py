@@ -1,5 +1,5 @@
 from scipy.integrate import quad
-from cmath import pi, exp, cos, cos, exp
+from cmath import pi
 
 from tbm_gfs.green_functions.functions import (
     Ne_lambda_function,
@@ -12,10 +12,8 @@ from tbm_gfs.constants import (
     INTEGRATION_EPS_ABS,
     INTEGRATION_EPS_REL,
     ETA,
-    FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY
+    FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY,
 )
-
-import numpy as np
 
 integration_options = {
     "limit": INTEGRATION_LIMIT,
@@ -25,17 +23,17 @@ integration_options = {
 
 t0 = FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY
 
-def integrand(kz, E, m, n, s1, s2, j, n_c):
 
+def integrand(kz, E, m, n, s1, s2, j, n_c):
     ka = pi * j / n_c
     Ne = Ne_lambda_function(E, kz, ka, m, n, s1, s2)
     phase_term = phase_lambda_function(kz, ka, m, n)
-    dispersion_relation = dispersion_relation_lambda_function(kz,ka)
+    dispersion_relation = dispersion_relation_lambda_function(kz, ka)
 
     return (
-        Ne(kz,ka)
+        Ne(kz, ka)
         * phase_term(kz, ka, m, n)
-        / (E * E - dispersion_relation(kz,ka)**2)
+        / (E * E - dispersion_relation(kz, ka) ** 2)
     )
 
 
