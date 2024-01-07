@@ -12,7 +12,7 @@ from tbm_gfs.constants import (
     FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY,
 )
 
-from tbm_gfs.green_functions.graphene.functions import (
+from tbm_gfs.green_functions.functions import (
     Ne_lambda_function,
     phase_lambda_function,
 )

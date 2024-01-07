@@ -7,7 +7,7 @@ Journal of Physics: Condensed Matter 26.5 (2013): 055007.
 
 from scipy.integrate import quad
 from cmath import sin, cos, acos, pi, sqrt
-from tbm_gfs.green_functions.graphene.functions import (
+from tbm_gfs.green_functions.functions import (
     Ne_lambda_function,
     phase_lambda_function,
 )
