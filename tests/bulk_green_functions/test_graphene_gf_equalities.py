@@ -1,12 +1,12 @@
 import pytest
 import numpy as np
-from tbm_gfs.green_functions.graphene.double_integral import (
+from tbm_gfs.bulk_green_functions.graphene.double_integral import (
     green_function as double_integral_gf,
 )
-from tbm_gfs.green_functions.graphene.single_integral import (
+from tbm_gfs.bulk_green_functions.graphene.single_integral import (
     green_function as single_integral_gf,
 )
-from tbm_gfs.green_functions.graphene.stationary_phase_approximation import (
+from tbm_gfs.bulk_green_functions.graphene.stationary_phase_approximation import (
     spa_same_sublattice_armchair_gf as spa_armchair_gf,
 )
 from tbm_gfs.constants import (

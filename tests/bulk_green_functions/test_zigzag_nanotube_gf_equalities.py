@@ -1,9 +1,9 @@
 import pytest
 import numpy as np
-from tbm_gfs.green_functions.nanotubes.zigzag.analytic import (
+from tbm_gfs.bulk_green_functions.nanotubes.zigzag.analytic import (
     green_function as zigzag_analytic_gf,
 )
-from tbm_gfs.green_functions.nanotubes.zigzag.integral import (
+from tbm_gfs.bulk_green_functions.nanotubes.zigzag.integral import (
     green_function as zigzag_integral_gf,
 )
 from tbm_gfs.constants import (
