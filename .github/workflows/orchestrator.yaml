@@ -45,6 +45,6 @@ jobs:
         pip install -r requirements.txt
     - name: Run unit-tests
       run: |
-        pytest -vs {{ matrix.test-file }}
+        pytest -vs ${{ matrix.test-file }}
 
 
