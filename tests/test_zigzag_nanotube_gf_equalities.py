@@ -27,11 +27,11 @@ t0_abs = np.abs(FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY)
 @pytest.mark.parametrize(
     "m_and_n_vectors",
     [
-        (0, 0), 
-        (1, 1), 
-        (1, 0), 
+        (0, 0),
+        (1, 1),
+        (1, 0),
         (8, 3),
-     ],
+    ],
 )
 @pytest.mark.parametrize(
     "s1_and_s2_sublattices",

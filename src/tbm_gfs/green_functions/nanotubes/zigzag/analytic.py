@@ -8,41 +8,33 @@ from tbm_gfs.constants import ETA, FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY
 
 t0 = FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY
 
-def green_function(n_c, E, m, n, S1, S2):
-    E += 1j*ETA
 
-    if (m + n) < 0:
-        S1, S2 = S2, S1
-        m, n = -m, -n
+def green_function(n_c, E, m, n, s1, s2):
+    E += 1j * ETA
     G = 0
 
     for j in range(1, n_c + 1):
-        kZ = j * pi / n_c
+        kz = j * pi / n_c
 
-        q = acos((E**2 - t0**2 - 4 * (t0**2) * (cos(kZ) ** 2)) / (4 * t0 * t0 * cos(kZ)))
-        if q.imag < 0:
-            q = -q
+        q_A = acos(
+            (E**2 - t0**2 - 4 * (t0**2) * (cos(kz) ** 2)) / (4 * t0 * t0 * cos(kz))
+        )
+        if q_A.imag < 0:
+            q_A = -q_A
 
         if (j == n_c / 2.0) and (m + n == 0):
-            if S1 == S2:
+            if s1 == s2:
                 Ne = E
             else:
                 Ne = t0
-            G += (Ne * exp(1j * kZ * (m - n))) / (n_c * (E**2 - t0**2))
+
+            G += (Ne * exp(1j * kz * (m - n))) / (n_c * (E**2 - t0**2))
 
         else:
-            if S1 == S2:
-                Ne = E
-            if S1 < S2:
-                Ne = t0 + 2 * t0 * cos(kZ) * exp(1j * q)
-            if S1 > S2:
-                if m == 0 and n == 0:
-                    Ne = t0 + 2 * t0 * cos(kZ) * exp(1j * q)
-                else:
-                    Ne = t0 + 2 * t0 * cos(kZ) * exp(-1j * q)
+            Ne = Ne_lambda_function(E, kz, q_A, m, n, s1, s2)
+            phase_term = phase_lambda_function(kz, q_A, m, n)
 
             G += (1j / (4 * n_c * (t0 * t0))) * (
-                (Ne * exp(1j * kZ * (m - n)) * exp(1j * q * (m + n)))
-                / (cos(kZ) * sin(q))
+                (Ne(kz,q_A) * phase_term(kz, q_A, m, n)) / (cos(kz) * sin(q_A))
             )
     return G
