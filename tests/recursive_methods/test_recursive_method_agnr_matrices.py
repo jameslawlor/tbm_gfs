@@ -8,11 +8,12 @@ from tbm_gfs.recursive_methods.matrices.armchair_nanoribbon import (
 )
 from tbm_gfs.constants import (
     FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY,
-    ARMCHAIR_GNR_PI_BOND_ADJUSTMENT_FACTOR
+    ARMCHAIR_GNR_PI_BOND_ADJUSTMENT_FACTOR,
 )
 
 t = FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY
 t_edge = t * ARMCHAIR_GNR_PI_BOND_ADJUSTMENT_FACTOR
+
 
 def test_armchair_nanoribbon_unit_cell_hamiltonian():
     # 4-ZGNR, P.87 Stephen's thesis
