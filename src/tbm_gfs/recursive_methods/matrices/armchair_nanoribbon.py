@@ -1,9 +1,13 @@
 import numpy as np
 
-from tbm_gfs.constants import FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY, ARMCHAIR_GNR_PI_BOND_ADJUSTMENT_FACTOR
+from tbm_gfs.constants import (
+    FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY,
+    ARMCHAIR_GNR_PI_BOND_ADJUSTMENT_FACTOR,
+)
 
 t = FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY
 t_edge = t * ARMCHAIR_GNR_PI_BOND_ADJUSTMENT_FACTOR
+
 
 def unit_cell_hamiltonian(size: int):
     """

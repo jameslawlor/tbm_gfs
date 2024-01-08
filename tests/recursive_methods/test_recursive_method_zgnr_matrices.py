@@ -17,14 +17,86 @@ def test_zigzag_nanoribbon_unit_cell_hamiltonian():
     # 4-ZGNR, P.87 Stephen's thesis
     expected_matrix = np.array(
         [
-            [0, t, 0, 0, 0, 0, 0, 0,],
-            [t, 0, t, 0, 0, 0, 0, 0,],
-            [0, t, 0, t, 0, 0, 0, 0,],
-            [0, 0, t, 0, t, 0, 0, 0,],
-            [0, 0, 0, t, 0, t, 0, 0,],
-            [0, 0, 0, 0, t, 0, t, 0,],
-            [0, 0, 0, 0, 0, t, 0, t,],
-            [0, 0, 0, 0, 0, 0, t, 0,],
+            [
+                0,
+                t,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+            ],
+            [
+                t,
+                0,
+                t,
+                0,
+                0,
+                0,
+                0,
+                0,
+            ],
+            [
+                0,
+                t,
+                0,
+                t,
+                0,
+                0,
+                0,
+                0,
+            ],
+            [
+                0,
+                0,
+                t,
+                0,
+                t,
+                0,
+                0,
+                0,
+            ],
+            [
+                0,
+                0,
+                0,
+                t,
+                0,
+                t,
+                0,
+                0,
+            ],
+            [
+                0,
+                0,
+                0,
+                0,
+                t,
+                0,
+                t,
+                0,
+            ],
+            [
+                0,
+                0,
+                0,
+                0,
+                0,
+                t,
+                0,
+                t,
+            ],
+            [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                t,
+                0,
+            ],
         ]
     )
 
@@ -34,7 +106,6 @@ def test_zigzag_nanoribbon_unit_cell_hamiltonian():
 
 
 def test_zigzag_nanoribbon_connection_matrix_LR():
-
     size = 4
     expected_matrix = np.zeros((2 * size, 2 * size))
     expected_matrix[0][1] = t
@@ -48,7 +119,6 @@ def test_zigzag_nanoribbon_connection_matrix_LR():
 
 
 def test_zigzag_nanoribbon_connection_matrix_RL():
-
     size = 4
 
     expected_matrix = np.zeros((2 * size, 2 * size))
