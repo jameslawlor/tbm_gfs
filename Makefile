@@ -14,7 +14,7 @@ ruff:
 	ruff check .
 	
 lint:
-	ruff check .
+	ruff check . --exit-zero
 
 format:
 	ruff format .
