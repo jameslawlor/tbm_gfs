@@ -6,7 +6,7 @@ Google Scholar: https://scholar.google.fi/citations?user=XeiCaFIAAAAJ&hl=en&oi=s
 
 ## Setup
 ```
-python3 -m virtualenv .env
+python3 -m venv .env
 source .env/bin/activate
 pip install -r requirements.txt
 pip install -e .
