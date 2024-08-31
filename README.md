@@ -22,22 +22,10 @@ pip install -e .
     * Integral form 
     * analytic (exact) form 
 * Examples
-    * Calculating local density of states for graphene
+  * Calculating local density of states for graphene
+* Other features
+  * Dockerised
+  * CI pipeline using Github Actions
 
 ## TODO list
-* Code
-  * Stationary Phase Approximation (Zigzag, opposite sublattices)
-  * GFs for Hamiltonians with 2nd NN hopping integrals and wavefunction overlap 
-  * Bulk GFs for semi-infinite graphene sheets
-  * Friedel oscillations 
-  * Recursive GFs for nanoribbon and nanotubes
-    * Standard recursive methods
-    * Rubio-Sancho / Sancho-Rubio method for recursive GFs
-    * Kubo formula for conductance
-  * Magnetic coupling / RKKY
-  * Impurities, dN, dE calculations
-  * Sublattice asymmetry (Ising model?)
-  * Graphene "sector" method
-* Features
-  * Docker images
-  * Docker build/run commands
+See [project board](https://github.com/users/jameslawlor/projects/1)
