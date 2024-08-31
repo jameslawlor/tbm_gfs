@@ -28,11 +28,7 @@ jobs:
       run: docker build -t tbm_gfs .
 
     - name: Run code linting with ruff
-      run: docker run --rm tbm_gfs make ruff
+      run: docker run --rm tbm_gfs make lint
 
     - name: Run the tests in Docker container
       run: docker run --rm tbm_gfs
-
-
-
-
