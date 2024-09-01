@@ -22,7 +22,7 @@ if __name__ == '__main__':
     xrange=range(1,50)
     tmp = [ldos(-1, 0.2, m, m, 1, 1) for m in xrange]
     plt.plot(xrange,tmp,color='green')
-    # plt.show()
+
     tmp = [ldos(-1, 0.2, m, m, 1, 2) for m in xrange]
     plt.plot(xrange,tmp,color='red')
     plt.show()
