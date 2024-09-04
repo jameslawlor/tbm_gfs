@@ -1,7 +1,7 @@
 from tbm_gfs.bulk_green_functions.graphene.single_integral import green_function
 from cmath import pi
 
-def ldos(lam:float, Energy: float, m: int, n: int, s1: int, s2: int):
+def local_density_of_states(lam:float, Energy: float, m: int, n: int, s1: int, s2: int):
     """
     Compute variations in local density of states
     in graphene at a specified lattice location `i`
@@ -18,11 +18,24 @@ def ldos(lam:float, Energy: float, m: int, n: int, s1: int, s2: int):
 
 
 if __name__ == '__main__':
-    import matplotlib.pylab as plt
-    xrange=range(1,50)
-    tmp = [ldos(-1, 0.2, m, m, 1, 1) for m in xrange]
-    plt.plot(xrange,tmp,color='green')
+    from tbm_gfs.plotter import GreenFunctionPlotter
 
-    tmp = [ldos(-1, 0.2, m, m, 1, 2) for m in xrange]
-    plt.plot(xrange,tmp,color='red')
+    energy = 0.2
+    s1 = 1
+    s2 = 2
+    distances = range(10,80)
+    lam = 0.1
+    
+    delta_ldos_same_sublattice = [local_density_of_states(lam, energy, m, m, s1, s1) for m in distances]
+    delta_ldos_opp_sublattice = [local_density_of_states(lam, energy, m, m, s1, s2) for m in distances]
+
+    import matplotlib.pylab as plt
+
+    plt.figure()
+    plt.xlabel("m")
+    plt.ylabel("Change in LDOS")
+    plt.plot(distances, delta_ldos_same_sublattice, label='same sublattice', color='k', marker='o')
+    plt.plot(distances, delta_ldos_opp_sublattice, label='opp sublattice', color='r', marker='o')
+    plt.legend()
+    plt.grid(True)
     plt.show()
