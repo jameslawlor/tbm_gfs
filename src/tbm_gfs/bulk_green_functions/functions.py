@@ -37,3 +37,46 @@ def dispersion_relation_lambda_function(
     kz: complex, ka: complex
 ) -> Callable[[complex, complex], complex]:
     return lambda kz, ka: t0 * sqrt(1 + 4 * cos(ka) * cos(kz) + 4 * cos(kz) * cos(kz))
+
+    
+def graphene_sector_method(m, n, s1, s2):
+    """
+	Transform any (m,n,s1,s2) vector on the graphene lattice
+	into an equivalent one in the irreducible sector from angle 0 to pi/6
+    
+    See Paul's thesis Appendix A
+    """
+
+    s = s2 - s1
+
+    # Handle white-black case
+    if s < 0:
+        m, n, s = -n, -m, -s
+
+    # Determine the correct sector and adjust m, n, s1, s2 accordingly
+    if m >= 0 and n >= 0:
+        pass  # Sector 0: no change needed
+    elif m >= 0 and abs(n) <= m:  # Sector 1 - bottom right 
+        m, n, s = -n, m + n + s, -s
+    elif m >= 0 and abs(n) > m:  # Sector 2 - bottom left
+        m, n, s = m, -n - m - s, s
+    elif m < 0 and n < 0:  # Sector 3 - left
+        m, n, s = -n, -m, -s
+    elif abs(m) > n:  # Sector 4 - upper left
+        m, n, s = n, -n -m -s, s
+    elif m < 0 and abs(m) <= 0:  # Sector 5 - upper right
+        m, n, s = -m, n + m + s, -s
+
+    # Ensure m >= n to move to the irreducible sector
+    if n > m:
+        m, n = n, m
+
+    if not (0 <= n and n <= m):
+        raise ValueError("No")
+
+    if s == 0:
+        return m, n, 1, 1
+    elif s > 0:
+        return m, n, 1, 2
+    elif s < 0:
+        return m, n, 2, 1
