@@ -35,8 +35,6 @@ def charge_density(lam: float, fermi_energy: float, m: int, n: int, s1: int, s2:
 
 
 if __name__ == "__main__":
-    from tbm_gfs.plotter import GreenFunctionPlotter
-
     fermi_energy = 0.2
     s1 = 1
     s2 = 2

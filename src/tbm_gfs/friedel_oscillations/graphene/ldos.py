@@ -21,8 +21,6 @@ def local_density_of_states(
 
 
 if __name__ == "__main__":
-    from tbm_gfs.plotter import GreenFunctionPlotter
-
     energy = 0.2
     s1 = 1
     s2 = 2
