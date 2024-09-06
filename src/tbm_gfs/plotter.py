@@ -104,12 +104,14 @@ if __name__ == "__main__":
     lam = -1
     delta_gf = [delta_Gii(lam, energy, m, m, s1, s2) for m in distances]
 
-    plotter = GreenFunctionPlotter(title=f"Change in GF at energy {energy} \n due to impurity strength {lam} at origin")
-    
+    plotter = GreenFunctionPlotter(
+        title=f"Change in GF at energy {energy} \n due to impurity strength {lam} at origin"
+    )
+
     plotter.plot_1d(
         distances,
         delta_gf,
-        xlabel='m',
+        xlabel="m",
         ylabel=f"Change in GF",
     )
 
@@ -117,5 +119,7 @@ if __name__ == "__main__":
 
     # Example data for energy plot
     energies = np.linspace(-4, 4, 200)
-    ldos = [(-1/np.pi)*green_function(energy, 0, 0, 1, 1).imag for energy in energies] 
-    plotter.plot_1d(energies, ldos, xlabel='Energy', ylabel="Local Density of States")
+    ldos = [
+        (-1 / np.pi) * green_function(energy, 0, 0, 1, 1).imag for energy in energies
+    ]
+    plotter.plot_1d(energies, ldos, xlabel="Energy", ylabel="Local Density of States")
