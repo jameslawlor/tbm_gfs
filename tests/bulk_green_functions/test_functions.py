@@ -60,17 +60,30 @@ def test_sector_3(m, n, s1, s2, expected):
     assert result == expected
 
 
-# def test_sector_4():
-#     # Test for sector 4 where abs(m) > n
-#     assert graphene_sector_method(-4, 1, 1, 0) == (1, 0, 1, 0)
+@pytest.mark.parametrize(
+    "m, n, s1, s2, expected",
+    [
+        (-1, 1, 1, 1, (1, 0, 1, 1)),
+        (-2, 1, 1, 1, (1, 1, 1, 1)),
+        (-3, 1, 1, 1, (2, 1, 1, 1)),
+        (-2, 0, 1, 2, (2, 0, 2, 1)),
+        (-1, 0, 2, 1, (1, 0, 1, 2)),
+    ],
+)
+def test_sector_4(m, n, s1, s2, expected):
+    result = graphene_sector_method(m, n, s1, s2)
+    assert result == expected
 
-# def test_sector_5():
-#     # Test for sector 5 where abs(m) <= n
-#     assert graphene_sector_method(-1, 4, 1, 0) == (1, 0, 0, 1)
 
-# def test_irreducible_sector():
-#     # Test for ensuring m >= n after transformation
-#     assert graphene_sector_method(1, 4, 0, 1) == (4, 1, 0, 1)
-
-# if __name__ == "__main__":
-#     pytest.main()
+@pytest.mark.parametrize(
+    "m, n, s1, s2, expected",
+    [
+        (-1, 2, 1, 1, (1, 1, 1, 1)),
+        (-1, 3, 1, 1, (2, 1, 1, 1)),
+        (-1, 1, 1, 2, (1, 1, 2, 1)),
+        (-1, 1, 2, 1, (1, 1, 2, 1)),
+    ],
+)
+def test_sector_5(m, n, s1, s2, expected):
+    result = graphene_sector_method(m, n, s1, s2)
+    assert result == expected
