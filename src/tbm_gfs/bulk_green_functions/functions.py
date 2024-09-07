@@ -1,5 +1,6 @@
 from typing import Callable
 from cmath import cos, exp, sqrt
+import numpy as np
 
 from tbm_gfs.constants import (
     FIRST_NEAREST_NEIGHBOUR_HOPPING_ENERGY,
@@ -52,56 +53,31 @@ def graphene_sector_method(m, n, s1, s2):
     - A tuple (m, n, s1, s2) where (m, n) lies in the irreducible sector.
     """
 
-    print("Inputs are:")
-    print(f"m={m} n={n} s1={s1} s2={s2} \n")
-
     s = s2 - s1
-
-    sector = None
 
     if s < 0:  # white-black case
         m, n, s = -n, -m, -s
 
     if m >= 0:
         if n >= 0:  # sector 0
-            print("Sector 0 - irreducible sector")
-            sector = 0
             pass
 
         elif abs(n) <= m:  # sector 1
             m, n, s = -n, m + n + s, -s
-            sector = 1
-            print("Sector 1")
-            print(f"m={m} n={n} s{s} \n")
 
         elif abs(n) > m:  # sector 2
             m, n, s = m, -n - m + -s, s
-            print("Sector 2")
-            sector = 2
-            print(f"m={m} n={n} s={s} \n")
     elif m < 0:
         if n <= 0:  # sector 3
             m, n, s = -n, -m, -s
-            print("Sector 3")
-            sector = 3
-            print(f"m={m} n={n} s{s} \n")
 
         elif abs(m) > n:  # sector 4
             m, n, s = n, -n - m - s, s
-            print("Sector 4")
-            sector = 4
-            print(f"m={m} n={n} s{s} \n")
 
         elif abs(m) <= n:  # sector 5
             m, n, s = -m, n + m + (s), -s
-            print("Sector 5")
-            sector = 5
-            print(f"m={m} n={n} s{s} \n")
-
     if n > m:  # to irreducible sector
         m, n = n, m
-        print("Flip m and n for irreducible sector")
-        print(f"m={m} n={n} s{s} \n")
 
     if s == 0:
         s1 = 1
@@ -113,7 +89,21 @@ def graphene_sector_method(m, n, s1, s2):
         s1 = 2
         s2 = 1
 
-    print("Returning")
-    print(f"m={m} n={n} s1={s1} s2={s2} \n")
-    print(f"Sector: {sector}")
     return m, n, s1, s2
+
+
+def convert_lattice_vectors_to_real_space(m, n, s):
+    """
+    Units of nearest-neighbour distance a=1
+    """
+
+    a1 = [3 / 2, np.sqrt(3) / 2]
+    a2 = [3 / 2, -np.sqrt(3) / 2]
+
+    x_coordinate = m * a1[0] + n * a2[0]
+    y_coordinate = m * a1[1] + n * a2[1]
+
+    if s == 2:
+        x_coordinate += 1
+
+    return x_coordinate, y_coordinate
