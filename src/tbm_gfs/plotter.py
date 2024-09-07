@@ -112,10 +112,10 @@ if __name__ == "__main__":
         distances,
         delta_gf,
         xlabel="m",
-        ylabel=f"Change in GF",
+        ylabel="Change in GF",
     )
 
-    plotter.title = f"Local density of states"
+    plotter.title = "Local density of states"
 
     # Example data for energy plot
     energies = np.linspace(-4, 4, 200)
